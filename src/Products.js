@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Products = ({ products, cartItems, createLineItem, updateLineItem })=> {
+
   return (
     <div>
       <h2>Products</h2>
@@ -9,12 +10,14 @@ const Products = ({ products, cartItems, createLineItem, updateLineItem })=> {
           products.map( product => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === product.id);
             return (
+              <div>
               <li key={ product.id }>
-                { product.name }
+                { product.name }, ${ product.price }.00, { product.description }
                 {
                   cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(product)}>Add</button>
                 }
               </li>
+              </div>
             );
           })
         }

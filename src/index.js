@@ -14,6 +14,7 @@ const App = ()=> {
   useEffect(()=> {
     const fetchData = async()=> {
       const response = await axios.get('/api/products');
+      const alpha = response.data.sort((a,b) => a.name.localeCompare(b.name))
       setProducts(response.data);
     };
     fetchData();
@@ -34,6 +35,8 @@ const App = ()=> {
     };
     fetchData();
   }, []);
+
+ 
 
   const cart = orders.find((order) => {return order.is_cart});
   if(!cart){
