@@ -61,6 +61,14 @@ const App = ()=> {
     }));
   };
 
+  const decrementQuantity = async({ lineItem, cart, lineItems, setLineItems })=> {
+    const response = await axios.put(`/api/lineItems/${lineItem.id}`, {
+      quantity: lineItem.quantity - 1,
+      order_id: cart.id
+    }, getHeaders());
+    setLineItems(lineItems.map( lineItem => lineItem.id === response.data.id ? response.data: lineItem));
+  };
+
   const updateOrder = async(order)=> {
     await axios.put(`/api/orders/${order.id}`, order);
     const response = await axios.get('/api/orders');
@@ -105,6 +113,7 @@ const App = ()=> {
           products = { products }
           updateOrder = { updateOrder }
           removeFromCart = { removeFromCart }
+          decrementQuantity = {decrementQuantity}
         />
       </div>
     </div>
